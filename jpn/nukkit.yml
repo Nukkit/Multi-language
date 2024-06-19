@@ -4,7 +4,7 @@
 
 settings:
  #言語設定
- #現在選べる言語: eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu
+ #現在選べる言語: eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu, cze
  language: "jpn"
  #端末に送る言語を強制するかどうか
  force-language: false
@@ -25,6 +25,8 @@ network:
  compression-level: 7
  #AsyncTasksを圧縮に使います. 0.5か1tick(1tick=0.05秒)遅れ、メインスレッドCPU負荷を減らします。
  async-compression: false
+ #Enable network encryption
+ encryption: false
 
 debug:
  #1より大きいと、コンソールにデバッグメッセージが表示されます
@@ -107,6 +109,8 @@ player:
  #trueの場合、プレーヤーデータは players/playername.dat として保存されます
  #falseの場合、nukkitはプレーヤのデータを "dat"ファイルとして保存せず、プラグインが何かを実行できるようにします。
  save-player-data: true
+ #スキンを変更する時のクールダウンを設定（秒単位）。なお不要な場合は0を設定してください。
+ skin-change-cooldown: 30
  
 aliases:
  #コマンドのショートカット
@@ -115,8 +119,13 @@ aliases:
  #savestop: [save-all, stop]
 
 worlds:
- # これらの設定は、server.propertiesでセットされたマップ生成の設定を上書きし、複数のワールドの読み込みを許可します
- #例:
- #world:
- # seed: 404
- # generator: FLAT:2;7,59x1,3x3,2;1;decoration(treecount=80 grasscount=45)
+ #Worlds that the server will use. Options are specific to the chosen generator, and may result in broken generation or
+ #be ignored completely.
+ world:
+  seed: 404
+  generator: normal
+  options:
+ nether:
+  seed: my_cool_nether_seed
+  generator: nether
+  options:

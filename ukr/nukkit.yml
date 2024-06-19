@@ -9,7 +9,7 @@
 
 settings:
  #Налаштування мови
- #Доступні: eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu
+ #Доступні: eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu, cze
  language: "ukr"
  #Вибір пристрою для обробки перекладу (true — сервер буде оброблювати переклад)
  force-language: false
@@ -31,6 +31,8 @@ network:
  compression-level: 7
  #Використання асинхронного завдання для стиснення. Додає затримку, менш навантаженний процесор
  async-compression: false
+ #Enable network encryption
+ encryption: false
 
 debug:
  #Якщо > 1, у консолі будуть з'являтися повідомлення відладки 
@@ -112,6 +114,8 @@ player:
  #If true, player data will be saved as players/playername.dat
  #If false, nukkit won't save player data as "dat" files, in order that plugins can do something on it.
  save-player-data: true
+ #The time between skin change action in seconds, set to 0 if you dont want the cooldown
+ skin-change-cooldown: 30
  
 aliases:
  #Альтернативи існуючим командам
@@ -120,8 +124,13 @@ aliases:
  #savestop: [save-all, stop]
 
 worlds:
- #Ці налаштування будуть генерувати мир в обхід server.properties і дозволяє завантажувати декілька рівнів
- #Наприклад:
- #world:
- # seed: 404
- # generator: FLAT:2;7,59x1,3x3,2;1;decoration(treecount=80 grasscount=45)
+ #Worlds that the server will use. Options are specific to the chosen generator, and may result in broken generation or
+ #be ignored completely.
+ world:
+  seed: 404
+  generator: normal
+  options:
+ nether:
+  seed: my_cool_nether_seed
+  generator: nether
+  options:

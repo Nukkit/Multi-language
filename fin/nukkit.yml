@@ -1,37 +1,35 @@
-# Zaawansowany plik konfiguracyjny Nukkit'a
-# Niektore z tych ustawien sa bezpieczne, inne moga zniszczyc Twoj serwer jesli zostana zle zmienione
-# Nowe ustawienia nie pojawia sie automatycznie w tym pliku podczas aktualizacji
+# Advanced configuration file for Nukkit
+# Some of these settings are safe, others can break your server if modified incorrectly
+# New settings/defaults won't appear automatically on this file when upgrading
 
 settings:
- #Ustawienia jezyka
- #Dostepne: eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu, cze
- language: "pol"
- #Wyslac wiadomosci w jezyku serwera czy pozwolic urzadzeniu wybrac
+ #Multi-language setting
+ #Available: eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu, idn, cze, tur, fin
+ language: "fin"
+ #Whether to send all strings translated to server locale or let the device handle them
  force-language: false
- shutdown-message: "Serwer wylaczony"
- #Pozwol wyswietlic pluginy za pomoca Query
+ shutdown-message: "Palvelin suljettu"
+ #Allow listing plugins via Query
  query-plugins: true
- #Wyswietl wiadomosc w konsoli o wykorzystywaniu przez plugin starej funkcji API
+ #Show a console message when a plugin uses deprecated API methods
  deprecated-verbose: true
- #Liczba AsyncTask worker'ow
- #Jesli jest ustawione na auto, bedzie probowac wykryc ilosc rdzeni (i przynajmniej 4)
+ #Number of AsyncTask workers
+ #If set to auto, it'll try to detect the number of cores (and at least 4)
  async-workers: auto
 
 network:
  #Threshold for batching packets, in bytes. Only these packets will be compressed
- #Set to 0 to compress everything, -1 to disable.
+ #Set to 0 to compress everything, -1 to disable
  batch-threshold: 256
  #Compression level used of Zlib when sending batched packets. Higher = more CPU, less bandwidth usage
  compression-level: 7
  #Use AsyncTasks for compression. Adds half/one tick delay, less CPU load on main thread
  async-compression: false
- #Enable network encryption
- encryption: false
 
 debug:
- #Jesli wartosc jest wieksza niz 1, bedzie pokazywac wiadomosci debug'u w konsoli
+ #If > 1, it will show debug messages in the console
  level: 1
- #Wlacza komendy: /status /gc
+ #Enables commands: /status /gc
  commands: false
 
 timings:
@@ -57,18 +55,18 @@ timings:
  ignore: []
 
 level-settings:
- #Podstawowy format, uzywany przez poziomy podczas tworzenia
+ #The default format that levels will use when created
  default-format: anvil
  #Automatically change levels tick rate to maintain 20 ticks per second
  auto-tick-rate: true
  auto-tick-rate-limit: 20
  #Sets the base tick rate (1 = 20 ticks per second, 2 = 10 ticks per second, etc.)
  base-tick-rate: 1
- #Tick all players each tick even when other settings disallow this.
+ #Tick all players each tick even when other settings disallow this
  always-tick-players: false
 
 chunk-sending:
- #Ilosc chunk'ow wysylanych do gracza na tick
+ #Amount of chunks sent to players per tick
  per-tick: 4
  #Amount of chunks sent around each player
  max-chunks: 192
@@ -79,7 +77,7 @@ chunk-sending:
  cache-chunks: false
 
 chunk-ticking:
- #Maksymalna ilosc chunk'ow przetwarzanych co tick
+ #Max amount of chunks processed each tick
  per-tick: 40
  #Radius of chunks around a player to tick
  tick-radius: 3
@@ -99,34 +97,26 @@ ticks-per:
  cache-cleanup: 900
 
 spawn-limits:
- #Maksymalna ilosc bytow
+ #Max amount of these entities
  monsters: 70
  animals: 15
  water-animals: 5
  ambient: 15
- 
+
 player:
- #Jesli ustawione na true, bedzie zapisywac gracza jako players/nickgracza.dat
+ #If true, player data will be saved as players/playername.dat
  #If false, nukkit won't save player data as "dat" files, in order that plugins can do something on it.
  save-player-data: true
- #The time between skin change action in seconds, set to 0 if you dont want the cooldown
- skin-change-cooldown: 30
- 
+
 aliases:
- #Alias'y dla komend
- #Przyklad:
- #alias: komenda LUB alias: [komenda1, komenda2, komenda3, itd.]
- #pokazmiwersje: version
- #zapisziwylacz: [save-all, stop]
+ #Aliases for commands
+ #Examples:
+ #showtheversion: version
+ #savestop: [save-all, stop]
 
 worlds:
- #Worlds that the server will use. Options are specific to the chosen generator, and may result in broken generation or
- #be ignored completely.
- world:
-  seed: 404
-  generator: normal
-  options:
- nether:
-  seed: my_cool_nether_seed
-  generator: nether
-  options:
+ #These settings will override the generator set in server.properties and allows loading multiple levels
+ #Example:
+ #world:
+ # seed: 404
+ # generator: FLAT:2;7,59x1,3x3,2;1;decoration(treecount=80 grasscount=45)

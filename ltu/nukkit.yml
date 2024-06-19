@@ -4,7 +4,7 @@
 
 settings:
  #Kalbos nustatymas
- #Galimos kalbos: eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu
+ #Galimos kalbos: bra, chs, cht, cze, deu, eng, idn, jpn, kor, ltu, pol, rus, spa, tur, ukr
  language: "ltu"
  #Ar priverstinai įjungti kalbą ar leisti pačiam įrenginiui susidoroti su vertimu
  force-language: false
@@ -25,6 +25,8 @@ network:
  compression-level: 7
  #Naudoti AsyncTasks suspaudimui. Prideda puse/vieno impulso vėlavimą, tačiau sumažina CPU naudojimą pagrindinėje serverio gijoje
  async-compression: false
+ #Enable network encryption
+ encryption: false
 
 debug:
  #Jeigu > 1, jis rodys derinimo pranešimus konsolėje
@@ -33,25 +35,25 @@ debug:
  commands: false
 
 timings:
- #Enable core and plugin timings by default
+ #Statistikos įskiepio įjungimas
  enabled: false
- #Enable monitoring at verbose level, include high-frequency timings
+ #Įjungti verbose statistikos įrašymą (gausite daugiau informacijos)
  verbose: false
- #Interval between history frames in ticks
- #Default is 5 minutes (6000 ticks)
+ #Intervalas tarp ankstesnių statistinių blokų tick'ais
+ #Įprasta reikšmė - 5 minutės (6000 ticks)
  history-interval: 6000
- #Length of the whole timing history in ticks
- #Default is 1 hour (72000 ticks)
- #This value is capped at a maximum of history-interval * 12
+ #Pilnas statistikos ilgis tick'ais
+ #Įprasta reikšmė - 1 valanda (72000 ticks)
+ #Ši reikšmė yra ribojama iki history-interval * 12 reikšmės
  history-length: 72000
- #For special cases of servers with special permission to bypass the max
- #This max helps keep data file sizes reasonable for processing on Aikar's Timing parser side
- #Setting this will not help you bypass the max unless Aikar has added an exception on the API side
+ #Kai kurie serveriai turi leidimą nepaisyti max limito
+ #Max limitas padeda statistinę informaciją suspausti iki tinkamo dydžio įkėlimui į Aikar's Timing sistemą
+ #Nustatant šią reiškmę į true Jūs vistiek negalėsite nepaisyti limito, nebent Aikar pridės išimtį savo API pusėje
  bypass-max: false
- #If set to true, name of your server won't be sent
+ #Jei nustatysite į true, Jūsų serverio pavadinimas nebus siunčiamas
  privacy: false
- #Settings sections to ignore. These sections won't be sent to Aikar's Timing parser
- #For example: [all] or [settings, timings]
+ #Nustatymų grupės, kurias reikėtų ignoruoti. Šios grupės nebus siunčiamos į Aikar's Timing sistemą
+ #Pavyzdys: [all] arba [settings, timings]
  ignore: []
 
 level-settings:
@@ -107,6 +109,8 @@ player:
  #Jeigu įvestis "true", tai žaidėjo informacija bus išsaugota faile players/zaidejo-vardas.dat
  #Jeigu įvestis "false", nukkit neišsaugos žaidėjo informacijos į "dat" failus, kad įskiepiai galėtų kažką padaryti su jais
  save-player-data: true
+ #The time between skin change action in seconds, set to 0 if you dont want the cooldown
+ skin-change-cooldown: 30
 
 aliases:
  #Alternatyvos komandoms
@@ -115,8 +119,13 @@ aliases:
  #savestop: [save-all, stop]
 
 worlds:
- #Visi šie nustatymai nepaisys nustatymų server.properties failiuke bei šie nustatymai leidžia įkelti daugiau nei vieną pasaulį
- #Pavyzdys:
- #world:
- # seed: 404
-# generator: FLAT:2;7,59x1,3x3,2;1;decoration(treecount=80 grasscount=45)
+ #Worlds that the server will use. Options are specific to the chosen generator, and may result in broken generation or
+ #be ignored completely.
+ world:
+  seed: 404
+  generator: normal
+  options:
+ nether:
+  seed: my_cool_nether_seed
+  generator: nether
+  options:

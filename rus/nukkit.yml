@@ -9,7 +9,7 @@
 
 settings:
  #Выбор языка.
- #Доступные языки: eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu
+ #Доступные языки: eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu, cze
  language: "rus"
  #true для отправки переведённых строк на сервер, или false - возложить перевод на устройство
  force-language: false
@@ -32,6 +32,8 @@ network:
  #Использование асинхронной задачи для сжатия
  #Снижает загрузку на CPU, но добавляет один (или половину) тика к задержке для отправки данных
  async-compression: false
+ #Enable network encryption
+ encryption: false
 
 debug:
  #При значении > 1 будет отображать дополнительную отладочную информацию в консоли
@@ -114,15 +116,23 @@ player:
  #Если выбрано true,то данные игрока будут храниться в файле players/playername.dat
  #Если выбрано false, Nukkit не будет хранить данные игрока в "dat" файлах, для того чтобы плагины с ними что-то делали.
  save-player-data: true
+ #The time between skin change action in seconds, set to 0 if you dont want the cooldown
+ skin-change-cooldown: 30
  
 aliases:
  #Псевдонимы (алиасы) для команд
  #Например:
  #showtheversion: version
  #savestop: [save-all, stop]
+
 worlds:
- #Эти настройки будут переопределять конфигурацию генератора, заданную в файле server.properties и добавляют загрузку нескольких миров
- #Например:
- #world:
- #seed: 404
- #generator: FLAT:2;7,59x1,3x3,2;1;decoration(treecount=80 grasscount=45)
+ #Worlds that the server will use. Options are specific to the chosen generator, and may result in broken generation or
+ #be ignored completely.
+ world:
+  seed: 404
+  generator: normal
+  options:
+ nether:
+  seed: my_cool_nether_seed
+  generator: nether
+  options:

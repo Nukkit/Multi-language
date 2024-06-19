@@ -1,10 +1,10 @@
 # Nukkit 進階設定
 # 警告：此處部分設定是安全的，而在一些設定不當的情況下可能會損害您的伺服器。
-# 升級後，新的設定及預設值將不會自動顯示在這裡，它們將以預設值運行直到你手動更新設定檔
+# 升級後，新的設定及預設值將不會自動顯示在這裡，它們將以預設值運行直到您手動更新設定檔
 
 settings:
  #多語言設定
- #可用：eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu
+ #可用：eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu, cze
  language: "cht"
  #伺服器強制語言
  force-language: false
@@ -25,6 +25,8 @@ network:
  compression-level: 7
  #非同步壓縮，緩解主線程CPU負載
  async-compression: false
+ #Enable network encryption
+ encryption: false
 
 debug:
  #當調試級別 > 1 時，將在控制台顯示調試資訊
@@ -46,7 +48,7 @@ timings:
  history-length: 72000
  #對於特殊情況將繞過最大值
  #這個最大值可以確保檔案大小合理，以便在Aikar的時間解析器進行處理
- #設置此項將不會幫你繞過最大值，除非在Aikar API中增加了特例
+ #設置此項將不會幫您繞過最大值，除非在Aikar API中增加了特例
  bypass-max: false
  #如果設定為 ture ，將不會發送您的伺服器名稱
  privacy: false
@@ -118,6 +120,8 @@ player:
  #設置為 ture，玩家資料將被儲存為 player/<玩家代號>.dat
  #設置為 false，nukkit 將不會儲存玩家資料為 "dat" 檔案，以便插件可以在其上執行某些操作。
  save-player-data: true
+ #The time between skin change action in seconds, set to 0 if you dont want the cooldown
+ skin-change-cooldown: 30
  
 aliases:
  #指令別稱
@@ -126,8 +130,13 @@ aliases:
  #savestop: [save-all, stop]
 
 worlds:
- #這些設定將覆蓋server.properties中的設定，並支持多地圖
- #例：
- #world:
- # seed: 404
- # generator: FLAT:2;7,59x1,3x3,2;1;decoration(treecount=80 grasscount=45)
+ #Worlds that the server will use. Options are specific to the chosen generator, and may result in broken generation or
+ #be ignored completely.
+ world:
+  seed: 404
+  generator: normal
+  options:
+ nether:
+  seed: my_cool_nether_seed
+  generator: nether
+  options:

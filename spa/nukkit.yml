@@ -4,7 +4,7 @@
 
 settings:
  #Configuración de multi-lenguaje
- #Disponibles: eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu
+ #Disponibles: eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu, cze
  language: "spa"
  #Ya sea para enviar todos los mensajes traducidos desde la consola o dejar que el dispositivo los interprete
  force-language: false
@@ -25,6 +25,8 @@ network:
  compression-level: 7
  #Usar AsyncTasks para comprimir. Añade un retraso de medio tick, reduce el consumo de CPU
  async-compression: false
+ #Enable network encryption
+ encryption: false
 
 debug:
  #Si es mayor que 1, mostrara mensajes de depuración en la consola
@@ -107,6 +109,8 @@ player:
  #If true, player data will be saved as players/playername.dat
  #If false, nukkit won't save player data as "dat" files, in order that plugins can do something on it.
  save-player-data: true
+ #The time between skin change action in seconds, set to 0 if you dont want the cooldown
+ skin-change-cooldown: 30
  
 aliases:
  #Alias de comandos
@@ -115,8 +119,13 @@ aliases:
  #savestop: [save-all, stop]
 
 worlds:
- #Estás configuraciones deben ajustarse en el archivo server.properties y activar multiples mundos
- #Ejemplo:
- #mundo:
- # semilla: 404
- # generador: FLAT:2;7,59x1,3x3,2;1;decoration(treecount=80 grasscount=45)
+ #Worlds that the server will use. Options are specific to the chosen generator, and may result in broken generation or
+ #be ignored completely.
+ world:
+  seed: 404
+  generator: normal
+  options:
+ nether:
+  seed: my_cool_nether_seed
+  generator: nether
+  options:

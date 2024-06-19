@@ -1,4 +1,4 @@
-#Multi-Language configurations for Nukkit
+# Multi-Language configurations for Nukkit
 
 We need you!
 -------------

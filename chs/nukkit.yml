@@ -1,10 +1,10 @@
 # Nukkit 高级设置
 # 警告：此处部分设置是安全的，而一些在设置不当的情况下可能会损害您的服务器
-# 升级后，新的设置及默认值将不会自动显示在这里，它们将以默认值运行直到你手动更新配置文件
+# 升级后，新的设置及默认值将不会自动显示在这里，它们将以默认值运行直到您手动更新配置文件
 
 settings:
  #多语言设置
- #可用：eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu
+ #可用：eng, chs, cht, jpn, rus, spa, pol, bra, kor, ukr, deu, ltu, cze
  language: "chs"
  #服务器强制语言
  force-language: false
@@ -13,17 +13,20 @@ settings:
  query-plugins: true
  #当某插件使用不被推荐的API时，在控制台提醒
  deprecated-verbose: true
- #异步线程数量，如果设置为auto，则自动识别CPU核心数量（最少4线程）
+ #异步线程数量
+ #如果设置为auto，则自动识别CPU核心数量（最少4线程）
  async-workers: auto
 
 network:
- #数据包大小阀值（单位：字节），这些包将被压缩
- #设为0，压缩全部。设为-1，禁用功能
+ #数据包大小阀值（单位：字节）。仅这些包会被压缩
+ #设为 0 以压缩全部。设为 -1 以禁用此功能
  batch-threshold: 256
- #压缩等级，等级越高，CPU占用越高，占用带宽越少
+ #压缩等级。等级越高，CPU 占用越高，占用带宽越少
  compression-level: 7
- #异步压缩，缓解主线程CPU负载
+ #异步压缩。通过增加半个/一个 tick 的延迟缓解主线程 CPU 负载
  async-compression: false
+ #Enable network encryption
+ encryption: false
 
 debug:
  #当调试级别 > 1 时，将在控制台显示调试信息
@@ -32,68 +35,64 @@ debug:
  commands: false
 
 timings:
- #Enable core and plugin timings by default
+ #默认启用核心和插件的性能分析
  enabled: false
- #Enable monitoring at verbose level, include high-frequency timings
+ #启用详细级别的监控，包括高频记录
  verbose: false
- #Interval between history frames in ticks
- #Default is 5 minutes (6000 ticks)
+ #以 tick 为单位的历史帧间隔
+ #默认五分钟（6000 ticks）
  history-interval: 6000
- #Length of the whole timing history in ticks
- #Default is 1 hour (72000 ticks)
- #This value is capped at a maximum of history-interval * 12
+ #以 tick 为单位的整个分析历史时长
+ #默认一小时（72000 ticks）
+ #该值上限为历史间隔（history-interval，即上一配置）的 12 倍
  history-length: 72000
- #For special cases of servers with special permission to bypass the max
- #This max helps keep data file sizes reasonable for processing on Aikar's Timing parser side
- #Setting this will not help you bypass the max unless Aikar has added an exception on the API side
+ #对于有特殊权限以绕过最大值的服务器的特殊情况
+ #最大值有助于保持数据文件大小合理，以便在 Aikar 的性能分析器端进行处理
+ #设置此选项不会帮您绕过最大值限制，除非 Aikar 在 API 端添加了一个例外
  bypass-max: false
- #If set to true, name of your server won't be sent
+ #将此设置为 true，您的服务器名就不会被发送出去
  privacy: false
- #Settings sections to ignore. These sections won't be sent to Aikar's Timing parser
- #For example: [all] or [settings, timings]
+ #设置忽略部分。这些部分不会被送往 Aikar 的性能分析器
+ #例如： [all] 或 [settings, timings]
  ignore: []
 
 level-settings:
  #默认生成的地图格式
  default-format: anvil
- #自动保持Level的tick速度
+ #自动改变世界 TPS 以维持每秒 20 ticks（TPS：ticks per second）
  auto-tick-rate: true
  auto-tick-rate-limit: 20
- #基本tick速率（1 = 20tick，2 = 10tick，以此类推）
+ #设置基本 TPS（1 = 20TPS，2 = 10TPS，以此类推）
  base-tick-rate: 1
- #始终保持玩家Tick
+ #始终保持玩家Tick，即使其他选项不允许这么做
  always-tick-players: false
 
 chunk-sending:
- #区块发送设置
- #单位时间（tick）内发送给玩家区块的数量
+ #每 tick 内发送给玩家区块的数量
  per-tick: 4
- #玩家附近发送的区块数量
+ #玩家附近的区块发送数量
  max-chunks: 192
- #玩家完成进服需要的区块数量
+ #玩家生成前需要的区块数量
  spawn-threshold: 56
- #使用区块缓存
- #缓解多玩家同时加入时的服务器压力
+ #在内存中存储一系列的区块复制以加快区块发送
+ #在多玩家同时加入一个大多是静态的服务器时较有效
  cache-chunks: false
 
 chunk-ticking:
- #区块处理设置
- #每单位时间（tick）中处理的区块数量
+ #每 tick 中处理的区块数量
  per-tick: 40
- #玩家周围区块处理的半径设置
+ #玩家周围区块处理的半径
  tick-radius: 3
  light-updates: false
  clear-tick-list: false
 
 chunk-generation:
- #区块生成设置
  #等待队列中，被生成的区块的数量上限
  queue-size: 8
  #等待队列中，被填充的区块的数量上限
  population-queue-size: 8
 
 ticks-per:
- #周期设置（单位：tick）
  animal-spawns: 400
  monster-spawns: 1
  autosave: 6000
@@ -107,19 +106,26 @@ spawn-limits:
  ambient: 15
  
 player:
- #决定服务器是否以players/xxx.dat的形式保存玩家数据。默认true为保存。
- #如果设置为false，nukkit将不会保存玩家数据。一些与玩家数据有关的插件也许会用到这个设置。
+ #决定服务器是否以 players/playername.dat 的形式保存玩家数据。默认 true 为保存。
+ #如果设置为 false，nukkit 将不会保存玩家数据，这样一些与玩家数据有关的插件就可以大展身手了。
  save-player-data: true
+ #The time between skin change action in seconds, set to 0 if you dont want the cooldown
+ skin-change-cooldown: 30
  
 aliases:
  #指令别称
- #例：
+ #例如：
  #showtheversion: version
  #savestop: [save-all, stop]
 
 worlds:
- #这些设定将覆盖server.properties中的设定，并支持多地图
- #例：
- #world:
- # seed: 404
- # generator: FLAT:2;7,59x1,3x3,2;1;decoration(treecount=80 grasscount=45)
+ #Worlds that the server will use. Options are specific to the chosen generator, and may result in broken generation or
+ #be ignored completely.
+ world:
+  seed: 404
+  generator: normal
+  options:
+ nether:
+  seed: my_cool_nether_seed
+  generator: nether
+  options:
